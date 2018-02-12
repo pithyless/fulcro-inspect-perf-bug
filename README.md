@@ -1,3 +1,117 @@
+# Bug #1
+
+Calls DataView/render, even after `fulcro-inspect` is disabled
+and component should have unmounted.
+
+## Install dependencies
+
+`[fulcrologic/fulcro-inspect "2.0.0-alpha6-PITHYLESS"]`
+
+Repo: https://github.com/pithyless/fulcro-inspect
+Branch: `avoid-render-when-inspect-is-inactive-logging`
+
+## Compile main client
+
+```
+npm install
+npx shadow-cljs watch main
+```
+
+## Open http://localhost:8020/ with devtools open.
+
+Example session:
+
+### Toggle `English|Spanish` locale
+
+```
+21:03:26.820 VISIBLE:  false
+21:03:26.821 KeyListener WILL-UPDATE
+21:03:26.840 KeyListener DID-UPDATE
+21:04:00.934 VISIBLE:  false
+21:04:00.935 KeyListener WILL-UPDATE
+21:04:00.946 KeyListener DID-UPDATE
+```
+
+### Open inspect, `ctrl-F`
+
+```
+21:04:41.138 iFrame MOUNT
+21:04:41.342 DataViewer/render
+21:04:41.374 KeyListener MOUNT
+21:04:41.528 DataViewer/render
+21:04:41.551 KeyListener MOUNT
+```
+
+### Toggle `English|Spanish` locale
+
+```
+21:05:30.927 DataViewer/render
+21:05:30.928 rendering data viewer 
+<div class="fulcro_inspect_ui_data-viewer_DataViewer__container">
+
+21:05:30.929 rendering data viewer 
+21:05:30.930 rendering data viewer undefined
+
+...
+VISIBLE:  true
+21:05:31.068 KeyListener WILL-UPDATE
+21:05:31.080 KeyListener DID-UPDATE
+21:05:31.208 KeyListener WILL-UPDATE
+
+21:05:31.233 DataViewer/render
+21:05:31.234 rendering data viewer 
+<div class="fulcro_inspect_ui_data-viewer_DataViewer__container">
+
+21:05:31.250 KeyListener DID-UPDATE
+```
+
+### Hide inspect, `ctrl-F`
+
+```
+21:07:58.496 VISIBLE:  false
+21:07:58.497 KeyListener WILL-UPDATE
+21:07:58.499 iFrame UN-MOUNT
+21:07:58.500 KeyListener UN-MOUNT
+21:07:58.507 KeyListener DID-UPDATE
+```
+
+### Keep clicking `English` locale - no change
+
+```
+21:08:52.516 VISIBLE:  false
+21:08:52.517 KeyListener WILL-UPDATE
+21:08:52.521 KeyListener DID-UPDATE
+
+21:08:52.713 VISIBLE:  false
+21:08:52.713 KeyListener WILL-UPDATE
+21:08:52.717 KeyListener DID-UPDATE``
+```
+
+### Toggle between `English|Spanish` locale
+
+BUG! DataViewer appears!
+
+```
+21:10:00.384 DataViewer/render
+21:10:00.384 rendering data viewer 
+<div class="fulcro_inspect_ui_data-viewer_DataViewer__container">
+
+21:10:00.385 rendering data viewer 
+21:10:00.385 rendering data viewer undefined
+
+21:10:00.445 DataViewer/render
+21:10:00.445 rendering data viewer 
+<div class="fulcro_inspect_ui_data-viewer_DataViewer__container">
+
+21:10:00.446 rendering data viewer 
+21:10:00.447 rendering data viewer undefined
+
+21:10:00.510 VISIBLE:  false
+21:10:00.511 KeyListener WILL-UPDATE
+21:10:00.520 KeyListener DID-UPDATE
+```
+
+
 # The Project
 
 The main project source is in `src/main`.
