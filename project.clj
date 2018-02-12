@@ -6,7 +6,7 @@
   :dependencies [[org.clojure/clojure "1.9.0"]
                  [org.clojure/clojurescript "1.9.946"]
                  [fulcrologic/fulcro "2.2.0"]
-                 [fulcrologic/fulcro-spec "2.0.0-beta3" :scope "test" :exclusions [fulcrologic/fulcro]]]
+                 [fulcrologic/fulcro-spec "2.0.0" :scope "test" :exclusions [fulcrologic/fulcro]]]
 
   :uberjar-name "demo.jar"
 
@@ -27,7 +27,9 @@
                           :dependencies [[binaryage/devtools "0.9.8"]
                                          [thheller/shadow-cljs "2.0.144"]
                                          [org.clojure/core.async "0.3.465"]
-                                         [fulcrologic/fulcro-inspect "2.0.0-alpha5"]
+                                         ;; [fulcrologic/fulcro-inspect "2.0.0-alpha5"]
+                                         [fulcrologic/fulcro-inspect "2.0.0-alpha6-PITHYLESS"]
+
                                          [devcards "0.2.4" :exclusions [cljsjs/react cljsjs/react-dom]]]}
              :dev        {:source-paths ["src/dev" "src/main" "src/cards"]
                           :jvm-opts     ["-XX:-OmitStackTraceInFastThrow" "-client" "-XX:+TieredCompilation" "-XX:TieredStopAtLevel=1"
