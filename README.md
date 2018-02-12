@@ -1,14 +1,14 @@
 # Bug #1
 
-Calls DataView/render, even after `fulcro-inspect` is disabled
+Calls `DataView/render`, even after `fulcro-inspect` is disabled
 and component should have unmounted.
 
 ## Install dependencies
 
 `[fulcrologic/fulcro-inspect "2.0.0-alpha6-PITHYLESS"]`
 
-Repo: https://github.com/pithyless/fulcro-inspect
-Branch: `avoid-render-when-inspect-is-inactive-logging`
+* Repo: https://github.com/pithyless/fulcro-inspect
+* Branch: `avoid-render-when-inspect-is-inactive-logging`
 
 ## Compile main client
 
