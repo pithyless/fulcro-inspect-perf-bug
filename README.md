@@ -1,3 +1,28 @@
+# Bug #2
+
+In `TagsQuery` we generate some state:
+
+```
+   :initial-state (fn [_] (generate-tags 10000))})
+```
+
+Performance was measured as toggling between `English|Spanish` locale.
+
+Changing number of tags (`10`, `100`, `1,000`, `10,000`) shows significant increase in UI lag when inspect is open, but not when page is loaded with inspect disabled.
+
+* 1k tags
+
+![1k call](screenshots/1k-call.jpg?raw=true)
+
+![1k alloc](screenshots/1k-alloc.jpg?raw=true)
+
+* 10k tags
+
+![10k call](screenshots/10k-call.jpg?raw=true)
+
+![10k alloc](screenshots/10k-alloc.jpg?raw=true)
+
+
 # Bug #1
 
 Calls `DataView/render`, even after `fulcro-inspect` is disabled
