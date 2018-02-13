@@ -10,6 +10,18 @@
 
 ;; The main UI of your application
 
+(defn rand-str [len]
+  (apply str (take len (repeatedly #(char (+ (rand 26) 97))))))
+
+(defn generate-tags [n]
+  (vec (repeatedly n #(hash-map :tag/name (rand-str 10)))))
+
+(defsc TagsQuery [this props]
+  {:ident [:tags/by-name :tag/name]
+   :query [:tag/name]
+   :initial-state
+   (fn [_] (generate-tags 10000))})
+
 (defn meaning-render [component load-markers which-meaning known-meaning]
   (let [load-marker (get load-markers which-meaning)
         meaning     (cond
@@ -54,9 +66,11 @@
 
 (defsc Root [this {:keys [root/meaning ui/locale-selector] :or {react-key "ROOT"}}]
   {:initial-state (fn [p] {:root/meaning       (prim/get-initial-state Meaning nil)
-                           :ui/locale-selector (prim/get-initial-state LocaleSelector {})})
+                           :ui/locale-selector (prim/get-initial-state LocaleSelector {})
+                           :root/tags          (prim/get-initial-state TagsQuery {})})
    :query         [:ui/locale
                    {:root/meaning (prim/get-query Meaning)}
+                   {:root/tags (prim/get-query TagsQuery)}
                    {:ui/locale-selector (prim/get-query LocaleSelector)}]}
   (dom/div nil
     (ui-locale locale-selector)
